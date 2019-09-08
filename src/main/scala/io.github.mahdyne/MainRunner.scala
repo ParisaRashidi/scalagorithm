@@ -6,6 +6,7 @@ import Recursion._
 object MainRunner {
   def main(args: Array[String]): Unit = {
     //val l=List(1,2,3,4)
-    println(fibonacci(8))
+    val l=Array(4,73,67,38,33)
+    HackerRank.gradingStudents(l).foreach(println)
   }
 }
