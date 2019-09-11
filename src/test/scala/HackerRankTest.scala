@@ -18,4 +18,9 @@ class HackerRankTest extends FunSuite with Matchers{
     val orangesD=Array(5,-6)
     assert(HackerRank.countApplesAndOranges(s,t,a,b,applesD,orangesD)===Array(1,1))
   }
+  test("getTotalX"){
+    val a=Array(2,4)
+    val b=Array(16,32,96)
+    assert(HackerRank.getTotalX(a,b)===3)
+  }
 }

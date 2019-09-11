@@ -5,8 +5,8 @@ import Recursion._
  */
 object MainRunner {
   def main(args: Array[String]): Unit = {
-    //val l=List(1,2,3,4)
-    val l=Array(4,73,67,38,33)
-    HackerRank.gradingStudents(l).foreach(println)
+    val a=Array(2,4)
+    val b=Array(16,32,96)
+    println(HackerRank.getTotalX(a,b))
   }
 }

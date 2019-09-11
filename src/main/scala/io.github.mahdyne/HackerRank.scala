@@ -22,4 +22,8 @@ object HackerRank {
     val orangesLandOnHouse=oranges.map(_+b).filter(p=> p<=t && p>=s)
     Array(applesLandOnHouse.length,orangesLandOnHouse.length)
   }
+  def getTotalX(a: Array[Int], b: Array[Int]): Int = {
+    val guesses=Range.inclusive(a.last,b.head)
+    guesses.count(g => a.forall(g % _ == 0)  && b.forall(_ % g == 0))
+  }
 }
