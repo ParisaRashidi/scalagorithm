@@ -17,4 +17,9 @@ object HackerRank {
       }
     }
   }
+  def countApplesAndOranges(s: Int, t: Int, a: Int, b: Int, apples: Array[Int], oranges: Array[Int]):Array[Int]={
+    val applesLandOnHouse=apples.map(_+a).filter(p=> p<=t && p>=s)
+    val orangesLandOnHouse=oranges.map(_+b).filter(p=> p<=t && p>=s)
+    Array(applesLandOnHouse.length,orangesLandOnHouse.length)
+  }
 }
