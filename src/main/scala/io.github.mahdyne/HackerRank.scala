@@ -1,5 +1,7 @@
 package io.github.mahdyne
 
+import scala.annotation.tailrec
+
 /**
  * @author mahdyne on 9/8/19.
  */
@@ -25,5 +27,21 @@ object HackerRank {
   def getTotalX(a: Array[Int], b: Array[Int]): Int = {
     val guesses=Range.inclusive(a.last,b.head)
     guesses.count(g => a.forall(g % _ == 0)  && b.forall(_ % g == 0))
+  }
+  def breakingRecords(scores: Array[Int]): Array[Int] = {
+    @tailrec
+    def findMaxCount(arr:List[Int],max:Int,counter:Int=0):Int= arr match{
+      case Nil=>counter
+      case x::xs=>if(x>max)findMaxCount(xs,x,counter+1) else findMaxCount(xs,max,counter)
+    }
+    @tailrec
+    def findMinCount(arr:List[Int],min:Int,counter:Int=0):Int= arr match{
+      case Nil=>counter
+      case x::xs=>if(x<min)findMinCount(xs,x,counter+1) else findMinCount(xs,min,counter)
+    }
+    val scoreList=scores.toList
+    val maxCount=findMaxCount(scoreList,scoreList.headOption.getOrElse(0))
+    val minCount=findMinCount(scoreList,scoreList.headOption.getOrElse(0))
+    Array(maxCount,minCount)
   }
 }
