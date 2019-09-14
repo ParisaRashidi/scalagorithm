@@ -27,4 +27,8 @@ class HackerRankTest extends FunSuite with Matchers{
     val b=Array(10,5,20,20,4,5,2,25,1)
     assert(HackerRank.breakingRecords(b)===Array(2,4))
   }
+  test("birthday"){
+    val b=Array(1,2,1,3,2)
+    assert(HackerRank.birthday(b,3,2)===2)
+  }
 }

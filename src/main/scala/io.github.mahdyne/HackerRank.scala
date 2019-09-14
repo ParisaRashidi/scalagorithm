@@ -44,4 +44,7 @@ object HackerRank {
     val minCount=findMinCount(scoreList,scoreList.headOption.getOrElse(0))
     Array(maxCount,minCount)
   }
+  def birthday(s: Array[Int], d: Int, m: Int): Int = {
+    s.sliding(m,1).toList.map(_.sum).count(_==d)
+  }
 }
