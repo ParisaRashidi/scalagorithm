@@ -31,4 +31,7 @@ class HackerRankTest extends FunSuite with Matchers{
     val b=Array(1,2,1,3,2)
     assert(HackerRank.birthday(b,3,2)===2)
   }
+  test("kangaroo"){
+    assert(HackerRank.kangaroo(0,2,5,3)==="NO")
+  }
 }

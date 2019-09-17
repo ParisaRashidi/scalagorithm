@@ -7,7 +7,7 @@ import scala.annotation.tailrec
  */
 object MainRunner {
   def main(args: Array[String]): Unit = {
-    val b=Array(1,2,1,3,2)
-    println(HackerRank.birthday(b,3,2))
+
+    println(HackerRank.kangaroo(0,2,5,3))
   }
 }

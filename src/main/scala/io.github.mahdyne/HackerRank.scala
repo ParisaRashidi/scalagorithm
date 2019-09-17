@@ -47,4 +47,15 @@ object HackerRank {
   def birthday(s: Array[Int], d: Int, m: Int): Int = {
     s.sliding(m,1).toList.map(_.sum).count(_==d)
   }
+  @tailrec
+  def kangaroo(x1: Int, v1: Int, x2: Int, v2: Int): String = {
+    val newX1=x1+v1
+    val newX2=x2+v2
+    if(newX1==newX2)
+      "YES"
+    else if(newX1>newX2)
+      "NO"
+    else
+      kangaroo(newX1,v1,newX2,v2)
+  }
 }
