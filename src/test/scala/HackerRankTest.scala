@@ -37,4 +37,7 @@ class HackerRankTest extends FunSuite with Matchers{
   test("divisibleSum"){
     assert(HackerRank.divisibleSumPairs(6,3,Array(1,3,2,6,1,2))===5)
   }
+  test("migratoryBird"){
+    assert(HackerRank.migratoryBirds(Array(1,3,2,6,1,2))===1)
+  }
 }

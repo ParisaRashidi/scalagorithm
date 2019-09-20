@@ -62,6 +62,15 @@ object HackerRank {
   def divisibleSumPairs(n: Int, k: Int, ar: Array[Int]): Int = {
     ar.toList.xcombinations(2) map(_.sum) count(_%k==0)
   }
+  def migratoryBirds(arr: Array[Int]): Int = {
+    val typeCount = arr.map((_,1)).groupBy(_._1).map{case (k:Int,v:Array[(Int,Int)])=>k->v.map(_._2).sum}
+    typeCount.foreach(println)
+    val max=typeCount.maxBy(_._2)._2
+    val maxType=typeCount.filter(_._2==max).minBy(_._1)._1
+    maxType
+    //val max=r.maxBy(_._2)._2
+
+  }
 }
 
 object CombinatorialOps {
