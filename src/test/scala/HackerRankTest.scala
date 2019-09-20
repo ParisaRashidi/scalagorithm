@@ -34,4 +34,7 @@ class HackerRankTest extends FunSuite with Matchers{
   test("kangaroo"){
     assert(HackerRank.kangaroo(0,2,5,3)==="NO")
   }
+  test("divisibleSum"){
+    assert(HackerRank.divisibleSumPairs(6,3,Array(1,3,2,6,1,2))===5)
+  }
 }

@@ -6,6 +6,7 @@ import scala.annotation.tailrec
  * @author mahdyne on 9/8/19.
  */
 object HackerRank {
+  import CombinatorialOps._
   def gradingStudents(grades: Array[Int]): Array[Int] = {
     val multFive=Range.inclusive(1,21).map(_*5)
     grades.map { i =>
@@ -57,5 +58,22 @@ object HackerRank {
       "NO"
     else
       kangaroo(newX1,v1,newX2,v2)
+  }
+  def divisibleSumPairs(n: Int, k: Int, ar: Array[Int]): Int = {
+    ar.toList.xcombinations(2) map(_.sum) count(_%k==0)
+  }
+}
+
+object CombinatorialOps {
+  implicit class CombinatorialList[A](l: List[A]) {
+    def xcombinations(n: Int): List[List[A]] =
+    if (n > l.size) Nil
+    else l match {
+      case _ :: _ if n == 1 =>
+        l.map(List(_))
+      case hd :: tl =>
+        tl.xcombinations(n - 1).map(hd :: _) ::: tl.xcombinations(n)
+      case _ => Nil
+    }
   }
 }

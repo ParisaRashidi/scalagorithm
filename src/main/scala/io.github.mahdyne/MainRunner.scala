@@ -8,6 +8,6 @@ import scala.annotation.tailrec
 object MainRunner {
   def main(args: Array[String]): Unit = {
 
-    println(HackerRank.kangaroo(0,2,5,3))
+    println(HackerRank.divisibleSumPairs(6,3,Array(1,3,2,6,1,2)))
   }
 }
