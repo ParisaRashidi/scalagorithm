@@ -40,4 +40,15 @@ class HackerRankTest extends FunSuite with Matchers{
   test("migratoryBird"){
     assert(HackerRank.migratoryBirds(Array(1,3,2,6,1,2))===1)
   }
+  test("dayOfProgrammer"){
+    assert(HackerRank.dayOfProgrammer(2000)==="12.09.2000")
+  }
+  test("bonAppetit"){
+    assert(HackerRank.bonAppetit(Array(3,10,2,9),1,12)==="5")
+  }
+  test("repeatedString"){
+    val s = "epsxyyflvrrrxzvnoenvpegvuonodjoxfwdmcvwctmekpsnamchznsoxaklzjgrqruyzavshfbmuhdwwmpbkwcuomqhiyvuztwvq"
+    val n:Long=549382313570l
+    assert(HackerRank.repeatedString(s,n)===16481469408l)
+  }
 }

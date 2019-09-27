@@ -1,5 +1,7 @@
 package io.github.mahdyne
 
+
+
 import scala.annotation.tailrec
 
 /**
@@ -68,10 +70,59 @@ object HackerRank {
     val max=typeCount.maxBy(_._2)._2
     val maxType=typeCount.filter(_._2==max).minBy(_._1)._1
     maxType
-    //val max=r.maxBy(_._2)._2
-
   }
+  def dayOfProgrammer(year: Int): String = {
+    val str=(day:Int,month:String,year:Int)=>s"$day.$month.$year"
+    if(year>1918)
+      if((year%4==0 && year%100!=0) || year%400==0) str(256-244,"09",year) else str(256-243,"09",year)
+    else if(year<1918)
+      if(year%4==0) str(256-244,"09",year) else str(256-243,"09",year)
+    else str(256-243+13,"09",year)
+  }
+  def bonAppetit(bill: Array[Int], k: Int, b: Int): String = {
+    val annaCharges=bill.zipWithIndex.filter(_._2!=k).map(_._1)
+    val annaPortion=annaCharges.sum/2
+    val overCharged=b-annaPortion
+    if(overCharged>0) overCharged.toString else "Bon Appetit"
+  }
+  def sockMerchant(n: Int, ar: Array[Int]): Int = {
+    ar.groupBy(e=>e).map{case (k,v)=>v.length/2}.sum
+  }
+  def countingValleys(n: Int, s: String): Int = {
+    var level=0
+    var numValleys=0
+    (0 until s.length).foreach{i=>
+      if(s.charAt(i)=='U') {
+        if(level== -1) numValleys += 1
+        level+=1
+      }
+      if(s.charAt(i)=='D') {
+        level+= -1
+      }
+    }
+    numValleys
+  }
+  def jumpingOnClouds(c: Array[Int]): Int = {
+    val cumulusIdxs=c.zipWithIndex.filter(_._1==0).map(_._2).toList
+    @tailrec
+    def cloud(ar:List[Int],steps:Int):Int= ar match{
+        case Nil=>steps
+        case x::xs=>xs.find(e=>e==x+2) match{
+          case None=>cloud(ar.drop(1),steps+1)
+          case Some(e)=>cloud(ar.dropWhile(_<x+2),steps+1)
+        }
+    }
+    cloud(cumulusIdxs,0)-1
+  }
+  def repeatedString(s: String, n: Long): Long = {
+    val aCountInS=s.count(_=='a')
+    val countOfRepetitions=n/s.length
+    val aIntheLastBucket=s.take((n-(countOfRepetitions*s.length)).toInt).count(_=='a')
+    (countOfRepetitions*aCountInS)+aIntheLastBucket
+  }
+
 }
+
 
 object CombinatorialOps {
   implicit class CombinatorialList[A](l: List[A]) {
