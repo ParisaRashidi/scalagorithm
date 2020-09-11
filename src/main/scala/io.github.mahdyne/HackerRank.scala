@@ -2,12 +2,18 @@ package io.github.mahdyne
 
 
 
+
+
 import scala.annotation.tailrec
+import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
+import scala.math.abs
 
 /**
  * @author mahdyne on 9/8/19.
  */
 object HackerRank {
+  case class Candid(i:Int,j:Int,value:Int)
   import CombinatorialOps._
   def gradingStudents(grades: Array[Int]): Array[Int] = {
     val multFive=Range.inclusive(1,21).map(_*5)
@@ -120,8 +126,166 @@ object HackerRank {
     val aIntheLastBucket=s.take((n-(countOfRepetitions*s.length)).toInt).count(_=='a')
     (countOfRepetitions*aCountInS)+aIntheLastBucket
   }
+  def hourglassSum(arr: Array[Array[Int]]): Int = {
+    val candid=for{
+      i<-(1 until  5)
+      j<-(1 until 5)
+    }yield (Candid(i,j,arr(i)(j)))
+    val maxHourGlass=candid.map{c=>
+      val hourGlass=for {
+        i<- (c.i-1 to c.i+1)
+        j<- (c.j-1 to c.j+1)
+        if(i!=c.i)
+      }yield arr(i)(j)
+      hourGlass:+c.value sum
+    }.max
+    maxHourGlass
+  }
+  def rotLeft(a: Array[Int], d: Int): Array[Int] = {
+    val bufArr=a.to[ArrayBuffer]
+    (0 until d).foreach{i=>
+      val head=bufArr(0)
+      bufArr.remove(0)
+      bufArr += head
+    }
+    bufArr.toArray
+    /*@tailrec
+    def circularRotate(arr:Array[Int],d:Int):Array[Int]=d match {
+      case 0=>arr
+      case _=>circularRotate(arr.drop(1):+arr(0),d-1)
+    }
+    circularRotate(a,d)*/
+  }
+  def rotLeftV2(a: Array[Int], d: Int): Array[Int] = {
+    @tailrec
+    def circularRotate(arr:Array[Int],d:Int):Array[Int]=d match {
+      case 0=>arr
+      case _=>circularRotate(arr.drop(1):+arr(0),d-1)
+    }
+    circularRotate(a,d)
+  }
+  def minimumBribes(q: Array[Int]) ={
+    val bribedQueue=q.sorted.to[ArrayBuffer]
+    var bribers:ArrayBuffer[(Int,Int)]=ArrayBuffer()
+    var i=0
+    while (i<q.length){
+      if(q(i)-i>1)bribers += Tuple2(q(i),i)
+      i+=1
+    }
+    val nbBribers=bribers.length
+    val validBribers=bribers.filter(t=>t._1-t._2<=3)
+    if(validBribers.length==nbBribers) {
+      var nbMoves=0
+      var i=0
+      while(i<q.length){
+        //println(bribedQueue)
+        if(bribedQueue(i)!=q(i)){
+          nbMoves+=bribedQueue.indexOf(q(i))-i
+          bribedQueue.moveElem(bribedQueue.indexOf(q(i)),i)
+          i=0
+        }else{
+          i+=1
+        }
+      }
+      println(nbMoves.toString)
+    }else
+      println("Too chaotic")
+  }
+  def minimumBribesV2(q: Array[Int]) ={
+    val zipped = q.zipWithIndex
+    println(q.sorted.toList)
+    println(q.toList)
+    var i=0
+    var res=""
+    var nbMoves=0
+    while(i<zipped.length){
+      val elem=zipped(i)
+      if(elem._1-elem._2>3) {
+        res="Too chaotic"
+        i=zipped.length
+      } else if(elem._1-elem._2>1) {
+        nbMoves+=elem._1-elem._2-1
+        res=nbMoves.toString
+        i+=1
+      } else if(elem._1-elem._2==0  && zipped(elem._2-1)._1>elem._1 && elem._1>zipped(elem._2+1)._1) {
+        nbMoves += 1
+        res = nbMoves.toString
+        i += 1
+      }else if(elem._1-elem._2==1  && zipped(elem._2-1)._1>elem._1) {
+        nbMoves += 1
+        res = nbMoves.toString
+        i += 1
+      }else
+        i+=1
+      println(s"${zipped(i-1)._1},$res")
+    }
+    println(res)
+  }
+
+  def minimumSwaps2(arr: Array[Int]): Int = {
+    val arrBuf = arr.toBuffer
+    var i: Int = 0
+    var swapCounter = 0
+    while (i < arr.length) {
+      var theNum = arrBuf(i)
+      var locNum = theNum - 1
+      if (i + 1 != theNum) {
+        val swapIdx = arrBuf.zipWithIndex.drop(i+1).map(e => (e._2, abs(locNum - e._2) + abs(e._1 - 1 - i))).minBy(_._2)._1
+        val tmp = arrBuf(swapIdx)
+        arrBuf(swapIdx) = arrBuf(i)
+        arrBuf(i) = tmp
+        swapCounter += 1
+        println(i,swapIdx,arrBuf)
+      } else i += 1
+    }
+    swapCounter
+  }
+  def minimumSwaps3(arr: Array[Int]): Int = {
+    var swapCounter=0
+    var i=1
+    var len=arr.length
+    while(i<=len)
+    {
+      if(arr(i-1)!=i){
+        val index=indexOfIntArray(arr,i,len)
+        val tmp = arr(i-1)
+        arr(i-1)=i
+        arr(index)=tmp
+        swapCounter+=1
+      }
+      i+=1
+    }
+    swapCounter
+  }
+
+  def indexOfIntArray(array:Array[Int], key: Int, len:Int): Int = {
+    var returnvalue = -1
+    var i = 0
+    while (i < len) {
+      if (key == array(i)) {
+        returnvalue = i
+        i=len
+      }else i += 1
+    }
+    returnvalue
+  }
+  def checkDuplicate(in: List[Int]): List[(Int, Int, String)] = {
+    val acc: List[(Int, Int, String)] = List()
+    @tailrec
+    def checkDuplicateAcc(in: List[Int], out: List[(Int, Int, String)]): List[(Int, Int, String)] = {
+      if (in.nonEmpty) {
+        if (in.size > 1 && in.head == in(1)) {
+          val res = out :+ (in.head, in(1), "hit")
+          checkDuplicateAcc(in.drop(2), res)
+        } else checkDuplicateAcc(in.drop(1), out)
+      } else out
+    }
+    checkDuplicateAcc(in, acc)
+  }
 
 }
+
+
 
 
 object CombinatorialOps {
@@ -134,6 +298,19 @@ object CombinatorialOps {
       case hd :: tl =>
         tl.xcombinations(n - 1).map(hd :: _) ::: tl.xcombinations(n)
       case _ => Nil
+    }
+    def moveElem(originIdx:Int,destIdx:Int):List[A]= l.take(destIdx)++(l(originIdx)+:l.patch(originIdx,Nil,1).drop(destIdx))
+  }
+  implicit class CombinatorialBuffer[A](arr: ArrayBuffer[A]) {
+    def moveElem(originIdx:Int,destIdx:Int):ArrayBuffer[A]= {
+      val origin=arr(originIdx)
+      var i = originIdx
+      while (i > destIdx) {
+        arr(i) = arr(i - 1)
+        i -= 1
+      }
+      arr(destIdx) = origin
+      arr
     }
   }
 }
