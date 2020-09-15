@@ -258,28 +258,45 @@ object HackerRank {
     swapCounter
   }
 
-  def indexOfIntArray(array:Array[Int], key: Int, len:Int): Int = {
+  def arrayManipulationV1(n: Int, queries: Array[Array[Int]]) = {
+    val storage=(1 to n).toArray.map(t=>(0,t))
+    queries.foreach(com=>storage.foreach{s=>storage(s._2-1)= if(s._2>=com(0) && s._2<=com(1)) (s._1+com(2),s._2) else (s._1,s._2)})
+    println(storage.map(e=>e._1).toList)
+  }
+  def arrayManipulationV2(n:Int,queries:Array[Array[Int]])={
+    queries
+      .flatMap(e=>Range.inclusive(e(0),e(1)).map(r=>(r,e(2))))
+      .groupBy(_._1).map{case (k,v)=>v.map(_._2.toLong).sum}.max
+  }
+
+  def checkMagazine(magazine: Array[String], note: Array[String]):String={
+    val magazineMap=magazine.map(e=>(e,1)).groupBy(_._1).map(e=>e._1->e._2.map(_._2).sum)
+    val noteMap=note.map(e=>(e,1)).groupBy(_._1).map(e=>(e._1,e._2.map(_._2).sum))
+    if(noteMap.exists(e=>magazineMap.getOrElse(e._1,0)<e._2)) "NO" else "YES"
+  }
+  def twoStrings(s1: String, s2: String) = {
+    val s1Set=s1.toSet
+    val s2Set=s2.toSet
+    val total=s1Set++s2Set
+    if(total.size!=s1Set.size+s2Set.size) "YES" else "NO"
+  }
+
+  def indexOfIntArray(array:Array[Int], key: Int, len:Int) = {
     var returnvalue = -1
     var i = 0
-    while (i < len) {
-      if (key == array(i)) {
-        returnvalue = i
-        i=len
-      }else i += 1
-    }
+    while (i < len) if (key == array(i)) {
+      returnvalue = i
+      i=len
+    }else i += 1
     returnvalue
   }
-  def checkDuplicate(in: List[Int]): List[(Int, Int, String)] = {
-    val acc: List[(Int, Int, String)] = List()
+  def checkDuplicate(in: List[Int]) = {
+    val acc = List()
     @tailrec
-    def checkDuplicateAcc(in: List[Int], out: List[(Int, Int, String)]): List[(Int, Int, String)] = {
-      if (in.nonEmpty) {
-        if (in.size > 1 && in.head == in(1)) {
-          val res = out :+ (in.head, in(1), "hit")
-          checkDuplicateAcc(in.drop(2), res)
-        } else checkDuplicateAcc(in.drop(1), out)
-      } else out
-    }
+    def checkDuplicateAcc(in: List[Int], out: List[(Int, Int, String)]):List[(Int, Int, String)] = if (in.nonEmpty) if (in.size > 1 && in.head == in(1)) {
+        val res = out :+ (in.head, in(1), "hit")
+        checkDuplicateAcc(in.drop(2), res)
+      } else checkDuplicateAcc(in.drop(1), out) else out
     checkDuplicateAcc(in, acc)
   }
 

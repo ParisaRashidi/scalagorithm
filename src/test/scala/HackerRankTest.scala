@@ -71,4 +71,14 @@ class HackerRankTest extends FunSuite with Matchers{
     val arr=Array(7, 1, 3, 2, 4, 5, 6)
     assert(minimumSwaps3(arr)===5)
   }
+  test("twoStrings"){
+    val s1="hackerrankcommunity"
+    val s2="cdecdecdecde"
+    assert(twoStrings(s1,s2)==="YES")
+  }
+  test("checkMagazine"){
+    val s1="hi all, here is surkhrud , im an engineer and i can see the beach from my home".split(" ")
+    val s2="im an engineer and im from surkhrud".split(" ")
+    assert(checkMagazine(s1,s2)==="NO")
+  }
 }
