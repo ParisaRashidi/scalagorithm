@@ -257,6 +257,16 @@ object HackerRank {
     }
     swapCounter
   }
+  def sherlockAndAnagrams(s: String): Int = {
+    s.inits
+      .flatMap(_.tails)
+      .withFilter(!_.isEmpty)
+      .map(_.sorted)
+      .toList
+      .groupBy(identity)
+      .map{case (_,v)=> ((v.size - 1) * v.size) / 2}
+      .sum
+  }
 
   def arrayManipulationV1(n: Int, queries: Array[Array[Int]]) = {
     val storage=(1 to n).toArray.map(t=>(0,t))

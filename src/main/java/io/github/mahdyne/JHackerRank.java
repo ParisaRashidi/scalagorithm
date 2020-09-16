@@ -91,6 +91,21 @@ public final class JHackerRank {
         }
         return result;
     }
+    static int sherlockAndAnagrams(String s) {
+        int len=s.length();
+        int res=0;
+        Map<String,Integer> map=new HashMap<>();
+        for(int i=0;i<len;i++){
+            for(int j=i+1;j<=len;j++){
+                char[] arr=s.substring(i,j).toCharArray();
+                Arrays.sort(arr);
+                String str=String.valueOf(arr);
+                Integer newCount=map.getOrDefault(str,0)+1;
+                map.put(str,newCount);
+            }
+        }
+        return map.values().stream().map(c->((c-1)*(c))/2).reduce(0, Integer::sum);
+    }
     static String twoStrings(String s1, String s2) {
         Set<String> set1= Stream.of(s1.split("")).collect(Collectors.toSet());
         Set<String> set2= Stream.of(s2.split("")).collect(Collectors.toSet());

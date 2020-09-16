@@ -81,4 +81,8 @@ class HackerRankTest extends FunSuite with Matchers{
     val s2="im an engineer and im from surkhrud".split(" ")
     assert(checkMagazine(s1,s2)==="NO")
   }
+  test("sherlockAndAnagrams"){
+    val s="ifailuhkqq"
+    assert(sherlockAndAnagrams(s)===3)
+  }
 }
