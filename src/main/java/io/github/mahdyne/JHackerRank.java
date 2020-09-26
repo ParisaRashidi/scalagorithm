@@ -115,4 +115,35 @@ public final class JHackerRank {
         else
             return "NO";
     }
+    long countTriplets(List<Long> arr, long r) {
+        ArrayList<Long> ll=new ArrayList<>(arr);
+        int n=ll.size();
+        long sum=0;
+        for(int i=0;i<n-2;i++){
+            for(int j=i+1;j<n-1;j++){
+                for(int k=j+1;k<n;k++){
+                    if(ll.get(i)*r==ll.get(j) && ll.get(j)*r==ll.get(k)) {
+                        sum++;
+                    }
+                }
+            }
+        }
+        return sum;
+    }
+    static String gameOfThrones(String s) {
+        StringBuilder sb=new StringBuilder(s);
+        int nonPaired=0;
+        while(sb.length()>0){
+            String theChar=String.valueOf(sb.charAt(0));
+            sb.deleteCharAt(0);
+            int idx=sb.indexOf(theChar);
+            if(idx>-1) {
+                sb.deleteCharAt(idx);
+            }else nonPaired++;
+        }
+        if(nonPaired>1)
+            return "NO";
+        else
+            return "YES";
+    }
 }

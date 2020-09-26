@@ -85,4 +85,8 @@ class HackerRankTest extends FunSuite with Matchers{
     val s="ifailuhkqq"
     assert(sherlockAndAnagrams(s)===3)
   }
+  test("gameOfThrones"){
+    val s="cdcdcdcdeeeef"
+    assert(gameOfThrones(s)==="YES")
+  }
 }

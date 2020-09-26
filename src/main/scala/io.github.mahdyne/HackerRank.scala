@@ -290,6 +290,16 @@ object HackerRank {
     val total=s1Set++s2Set
     if(total.size!=s1Set.size+s2Set.size) "YES" else "NO"
   }
+  def countTriplets(arr: Array[Long], r: Long): Long = {
+    arr.filter(e=>e%r==0 || e==1).toList.xcombinations(3).count(e=>e(0)*r==e(1) && e(1)*r==e(2))
+  }
+  def gameOfThrones(s: String): String = {
+    val oddCount=s.toSeq.groupBy(identity).values.map(_.size).count(_ % 2 != 0)
+    if(oddCount>1)
+      "NO"
+    else
+      "YES"
+  }
 
   def indexOfIntArray(array:Array[Int], key: Int, len:Int) = {
     var returnvalue = -1
