@@ -300,6 +300,14 @@ object HackerRank {
     else
       "YES"
   }
+  def makingAnagrams(s1: String, s2: String): Int = {
+    val intersect=s1.filter(e=>s2.contains(e))
+    val intersectDelete=intersect.distinct.sorted.map{e=>
+      val intersectCount=intersect.count(_==e)
+      math.abs(s1.count(_==e)-intersectCount)+math.abs(s2.count(_==e)-intersectCount)
+    }.sum
+    intersectDelete+s1.filter(e=> !intersect.contains(e)).size + s2.filter(e=> !intersect.contains(e)).size
+  }
 
   def indexOfIntArray(array:Array[Int], key: Int, len:Int) = {
     var returnvalue = -1
