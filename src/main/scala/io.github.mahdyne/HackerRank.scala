@@ -308,6 +308,15 @@ object HackerRank {
     }.sum
     intersectDelete+s1.filter(e=> !intersect.contains(e)).size + s2.filter(e=> !intersect.contains(e)).size
   }
+  def anagram(s: String): Int = {
+    val n=s.length
+    if(n%2==0) {
+      val (l1,l2)=s.toSeq.splitAt(n/2)
+      n/2-l1.intersect(l2).length
+    }else{
+      -1
+    }
+  }
 
   def indexOfIntArray(array:Array[Int], key: Int, len:Int) = {
     var returnvalue = -1

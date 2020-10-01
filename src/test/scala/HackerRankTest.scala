@@ -94,4 +94,8 @@ class HackerRankTest extends FunSuite with Matchers{
     val s2="djfladfhiawasdkjvalskufhafablsdkashlahdfa"
     assert(makingAnagrams(s1,s2)===19)
   }
+  test("anagram"){
+    val s="xaxbbbxx"
+    assert(anagram(s)===1)
+  }
 }

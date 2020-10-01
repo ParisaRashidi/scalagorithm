@@ -5,9 +5,6 @@ import HackerRank._
  */
 object MainRunner {
   def main(args: Array[String]): Unit = {
-    val s1="absdjkvuahdakejfnfauhdsaavasdlkj"
-    val s2="djfladfhiawasdkjvalskufhafablsdkashlahdfa"
-    println(makingAnagrams(s1,s2))
   }
 
 }
